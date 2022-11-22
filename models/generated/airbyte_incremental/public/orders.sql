@@ -9,8 +9,8 @@
 select
     _airbyte_unique_key,
     {{ adapter.quote('id') }},
-    total,
-    _links,
+    total as test1,
+    _links as test2,
     {{ adapter.quote('number') }},
     status,
     billing,
