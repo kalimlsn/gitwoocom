@@ -1,0 +1,137 @@
+name: airbyte_utils
+version: '1.0'
+config-version: 2
+profile: normalize
+model-paths:
+- models
+docs-paths:
+- docs
+analysis-paths:
+- analysis
+test-paths:
+- tests
+seed-paths:
+- data
+macro-paths:
+- macros
+target-path: ../build
+log-path: ../logs
+packages-install-path: ../dbt
+clean-targets:
+- build
+- dbt_modules
+quoting:
+  database: true
+  schema: false
+  identifier: true
+models:
+  airbyte_utils:
+    +materialized: table
+    generated:
+      airbyte_ctes:
+        +tags: airbyte_internal_cte
+        +materialized: ephemeral
+      airbyte_incremental:
+        +tags: incremental_tables
+        +materialized: incremental
+        +on_schema_change: sync_all_columns
+      airbyte_tables:
+        +tags: normalized_tables
+        +materialized: table
+      airbyte_views:
+        +tags: airbyte_internal_views
+        +materialized: view
+dispatch:
+- macro_namespace: dbt_utils
+  search_order:
+  - airbyte_utils
+  - dbt_utils
+vars:
+  json_column: _airbyte_data
+  models_to_source:
+    customers_ab1: public._airbyte_raw_customers
+    customers_ab2: public._airbyte_raw_customers
+    customers_stg: public._airbyte_raw_customers
+    customers_scd: public._airbyte_raw_customers
+    customers: public._airbyte_raw_customers
+    orders_ab1: public._airbyte_raw_orders
+    orders_ab2: public._airbyte_raw_orders
+    orders_stg: public._airbyte_raw_orders
+    orders_scd: public._airbyte_raw_orders
+    orders: public._airbyte_raw_orders
+    customers__links_ab1: public._airbyte_raw_customers
+    customers__links_ab2: public._airbyte_raw_customers
+    customers__links_ab3: public._airbyte_raw_customers
+    customers__links: public._airbyte_raw_customers
+    customers_billing_ab1: public._airbyte_raw_customers
+    customers_billing_ab2: public._airbyte_raw_customers
+    customers_billing_ab3: public._airbyte_raw_customers
+    customers_billing: public._airbyte_raw_customers
+    customers_shipping_ab1: public._airbyte_raw_customers
+    customers_shipping_ab2: public._airbyte_raw_customers
+    customers_shipping_ab3: public._airbyte_raw_customers
+    customers_shipping: public._airbyte_raw_customers
+    orders__links_ab1: public._airbyte_raw_orders
+    orders__links_ab2: public._airbyte_raw_orders
+    orders__links_ab3: public._airbyte_raw_orders
+    orders__links: public._airbyte_raw_orders
+    orders_billing_ab1: public._airbyte_raw_orders
+    orders_billing_ab2: public._airbyte_raw_orders
+    orders_billing_ab3: public._airbyte_raw_orders
+    orders_billing: public._airbyte_raw_orders
+    orders_refunds_ab1: public._airbyte_raw_orders
+    orders_refunds_ab2: public._airbyte_raw_orders
+    orders_refunds_ab3: public._airbyte_raw_orders
+    orders_refunds: public._airbyte_raw_orders
+    orders_shipping_ab1: public._airbyte_raw_orders
+    orders_shipping_ab2: public._airbyte_raw_orders
+    orders_shipping_ab3: public._airbyte_raw_orders
+    orders_shipping: public._airbyte_raw_orders
+    orders_fee_lines_ab1: public._airbyte_raw_orders
+    orders_fee_lines_ab2: public._airbyte_raw_orders
+    orders_fee_lines_ab3: public._airbyte_raw_orders
+    orders_fee_lines: public._airbyte_raw_orders
+    orders_tax_lines_ab1: public._airbyte_raw_orders
+    orders_tax_lines_ab2: public._airbyte_raw_orders
+    orders_tax_lines_ab3: public._airbyte_raw_orders
+    orders_tax_lines: public._airbyte_raw_orders
+    orders_line_items_ab1: public._airbyte_raw_orders
+    orders_line_items_ab2: public._airbyte_raw_orders
+    orders_line_items_ab3: public._airbyte_raw_orders
+    orders_line_items: public._airbyte_raw_orders
+    orders_coupon_lines_ab1: public._airbyte_raw_orders
+    orders_coupon_lines_ab2: public._airbyte_raw_orders
+    orders_coupon_lines_ab3: public._airbyte_raw_orders
+    orders_coupon_lines: public._airbyte_raw_orders
+    orders_shipping_lines_ab1: public._airbyte_raw_orders
+    orders_shipping_lines_ab2: public._airbyte_raw_orders
+    orders_shipping_lines_ab3: public._airbyte_raw_orders
+    orders_shipping_lines: public._airbyte_raw_orders
+    customers__links_self_ab1: public._airbyte_raw_customers
+    customers__links_self_ab2: public._airbyte_raw_customers
+    customers__links_self_ab3: public._airbyte_raw_customers
+    customers__links_self: public._airbyte_raw_customers
+    customers__links_collection_ab1: public._airbyte_raw_customers
+    customers__links_collection_ab2: public._airbyte_raw_customers
+    customers__links_collection_ab3: public._airbyte_raw_customers
+    customers__links_collection: public._airbyte_raw_customers
+    orders__links_self_ab1: public._airbyte_raw_orders
+    orders__links_self_ab2: public._airbyte_raw_orders
+    orders__links_self_ab3: public._airbyte_raw_orders
+    orders__links_self: public._airbyte_raw_orders
+    orders__links_collection_ab1: public._airbyte_raw_orders
+    orders__links_collection_ab2: public._airbyte_raw_orders
+    orders__links_collection_ab3: public._airbyte_raw_orders
+    orders__links_collection: public._airbyte_raw_orders
+    orders_fee_lines_taxes_ab1: public._airbyte_raw_orders
+    orders_fee_lines_taxes_ab2: public._airbyte_raw_orders
+    orders_fee_lines_taxes_ab3: public._airbyte_raw_orders
+    orders_fee_lines_taxes: public._airbyte_raw_orders
+    orders_line_items_taxes_ab1: public._airbyte_raw_orders
+    orders_line_items_taxes_ab2: public._airbyte_raw_orders
+    orders_line_items_taxes_ab3: public._airbyte_raw_orders
+    orders_line_items_taxes: public._airbyte_raw_orders
+    orders_shipping_lines_taxes_ab1: public._airbyte_raw_orders
+    orders_shipping_lines_taxes_ab2: public._airbyte_raw_orders
+    orders_shipping_lines_taxes_ab3: public._airbyte_raw_orders
+    orders_shipping_lines_taxes: public._airbyte_raw_orders
